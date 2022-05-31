@@ -6,16 +6,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-class AuthController extends Controller
+class TaskController extends Controller
 {
     /**
      * トップページを表示する
      * 
      * @return\Illuminate\View\View
      * */
-     public function index()
+     public function list()
      {
-         return view('index');
+         return view('task.list');
      }
      
      /*2ndページを表示する
