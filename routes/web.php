@@ -25,3 +25,4 @@ Route::post('/test/input',[TestController::class,'input']);
 //タスク管理システム
 Route::get('/',[AuthController::class,'index']);
 Route::get('/task/list',[TaskController::class,'list']);
+Route::post('/login',[AuthController::class,'login']);
