@@ -23,6 +23,10 @@ Route::get('/test',[TestController::class,'index']);
 Route::post('/test/input',[TestController::class,'input']);
 
 //タスク管理システム
-Route::get('/',[AuthController::class,'index']);
-Route::get('/task/list',[TaskController::class,'list']);
+Route::get('/',[AuthController::class,'index'])->name('front.index');
 Route::post('/login',[AuthController::class,'login']);
+//認可処理
+Route::middleware(['auth'])->group(function(){
+    Route::get('/task/list',[TaskController::class,'list']);
+    Route::get('/logout',[AuthController::class,'logout']);
+});
