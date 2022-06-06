@@ -42,8 +42,8 @@
                 <td>{{$task->name}}</td>
                 <td>{{$task->period}}</td>
                 <td>{{$task->getPriorityString()}}</td>
-                <td><a href="{{route('detail',['task_id'=>$task_id])}}">詳細閲覧</a></td>
-                <td><a href="./edit.html">編集</a></td>
+                <td><a href="{{route('detail',['task_id' => $task->id])}}">詳細閲覧</a></td>
+                <td><a href="{{route('edit',['task_id' => $task ->id])}}">編集</a></td>
                 <td><form action="./top.html"><button>完了</button></form></td>
             </tr>
         @endforeach
