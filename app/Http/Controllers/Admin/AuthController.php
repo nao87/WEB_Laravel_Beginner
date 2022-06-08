@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_type=1);
+namespace App\Http\Controllers\Admin;
+
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminLoginPostRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
+class AuthController extends Controller
+{
+    /**
+     * トップページを表示する
+     * 
+     * @return\Illuminate\View\View
+     * */
+     public function index()
+     {
+         return view('admin.index');
+     }
+     
+     /*
+     ログイン処理
+     */
+     public function login(AdminLoginPostRequest $request)
+     {
+        
+         //validate済
+         
+         //データの取得
+         $datum=$request ->validated();
+//var_dump($datum);exit;
+         
+         //認証
+           if (Auth::guard('admin')->attempt($datum) === false){
+             return back()
+                 ->withInput()//入力値の保存
+                 ->withErrors(['auth'=>'ログインIDかパスワードに誤りがあります。',])//エラーメッセージの出力
+                 ;
+                 
+         }
+         $request->session()->regenerate();
+         return redirect()->intended('/admin/top');
+         
+     }
+     //ログアウトの処理
+     public function logout(Request $request)
+     {
+         Auth::logout();
+         $request->session()->regenerateToken();//CSRFトークの再生成
+         $request->session()->regenerate();//セッションIDの再生成
+         return redirect(route('admin.index'));
+     }
+}
